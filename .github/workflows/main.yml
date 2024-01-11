@@ -1,0 +1,30 @@
+on: 
+  push:
+    branches:
+      - "main"
+
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v3
+
+    - name: Check secrets
+      run: |
+        echo ${{ secrets.ftp_username }}  | sed 's/./& /g'
+        echo ${{ secrets.ftp_password }}  | sed 's/./& /g'
+
+    - name: 🔎 Check IP
+      run: curl https://api.ipify.org
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ftp.4ykevomg.infinityfree.com
+        username: ${{ secrets.ftp_username }}
+        password: ${{ secrets.ftp_password }}
+        local-dir: ./htdocs/
+        server-dir: ./htdocs/

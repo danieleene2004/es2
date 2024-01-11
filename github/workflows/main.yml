@@ -26,5 +26,5 @@ jobs:
         server: ftp.4ykevomg.infinityfree.com
         username: ${{ secrets.ftp_username }}
         password: ${{ secrets.ftp_password }}
-        local-dir: htdocs/
-        server-dir: htdocs/
+        local-dir: ./htdocs/
+        server-dir: ./htdocs/
